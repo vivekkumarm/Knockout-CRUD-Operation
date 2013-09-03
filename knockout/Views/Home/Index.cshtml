@@ -1,0 +1,88 @@
+﻿@model knockout.Models.UserDetail
+@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                To learn more about ASP.NET MVC visit
+                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
+                If you have any questions about ASP.NET MVC visit
+                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
+            </p>
+        </div>
+    </section>
+}
+
+@*<table>
+    <thead><tr>
+        <th>Passenger name</th><th>Meal</th><th>Surcharge</th><th></th>
+    </tr></thead>
+    <tbody data-bind="foreach: seats">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: meal().mealName"></td>
+            <td data-bind="text: meal().price"></td>
+        </tr>    
+    </tbody>
+</table>
+
+<button data-bind="click: addSeat">Reserve another seat</button>*@
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(d=>d.Username);
+    @Html.TextBoxFor(d => d.Username, new { data_bind = "value: Name" });
+    
+    
+    @Html.LabelFor(d => d.Age);
+    @Html.TextBoxFor(d => d.Age, new { data_bind = "value: Age" });
+    
+    @Html.LabelFor(d => d.Course);
+    @Html.TextBoxFor(d => d.Course, new { data_bind = "value: Course" });
+    
+    <input type="button" value="click" id="sa" />
+    <input type="button" value="Add" data-bind="click :$root.add" />
+     @*<button data-bind="click :$root.add">Add</button>*@
+    
+    <span data-bind="text : Name"></span>
+    <span data-bind="text : Age"></span>
+    <span data-bind="text : Course"></span>
+ 
+}
+
+@section Scripts{
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    @Scripts.Render("~/bundles/jquery");
+    <script type="text/javascript">
+        var data = {
+            Name: ko.observable(),
+            Age:ko.observable(),
+            Course:ko.observable()
+        };
+        
+        ko.applyBindings(data);
+
+
+        $(document).ready(function () {
+            //ko.applyBindings(data);
+            $("#sa").click(function () {
+                alert(data.Name());
+            });
+        });
+       
+        debugger
+        function addSeat() {
+            
+        }
+
+    </script>
+   }
