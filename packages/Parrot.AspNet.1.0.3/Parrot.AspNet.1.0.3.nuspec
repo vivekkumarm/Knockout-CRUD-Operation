@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Parrot.AspNet</id>
+    <version>1.0.3</version>
+    <title>Parrot.AspNet</title>
+    <authors>Ben Dornis</authors>
+    <owners>Ben Dornis</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Parrot view engine for Asp.Net</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <dependencies>
+      <dependency id="Parrot" version="1.0.3" />
+      <dependency id="Parrot.Renderers" version="1.0.3" />
+      <dependency id="WebActivatorEx" version="2.0.2" />
+    </dependencies>
+  </metadata>
+</package>

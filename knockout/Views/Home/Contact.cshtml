@@ -1,0 +1,205 @@
+﻿@model knockout.Models.UserDetail
+@{
+    ViewBag.Title = "Contact";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+@*<p>First name: <strong data-bind="text: firstName"></strong></p>
+<p>Last name: <strong data-bind="text: lastName"></strong></p>
+<p>Birthdate: <strong data-bind="text: birthdate"></strong></p>
+
+<p>First name: <input data-bind="value: firstName" /></p>
+<p>Last name: <input data-bind="value: lastName" /></p>
+<p>Birthdate: <input data-bind="value: birthdate" /></p>
+
+<p>Age: <strong data-bind="text: age"></strong></p>
+
+<button data-bind="click: fullPerson">Show!</button>*@
+
+<strong data-bind="text: person"></strong>
+
+@using (Html.BeginForm())
+{
+    <div id="div1">
+    @Html.LabelFor(sm=>sm.FirstName)
+    @Html.TextBoxFor(sm => sm.FirstName, new { data_bind = "value: firstName" })
+   
+    @Html.LabelFor(sm=>sm.LastName)
+    @Html.TextBoxFor(sm => sm.LastName, new { data_bind = "value: lastName" })
+
+    @Html.LabelFor(sm=>sm.Bdate)
+    @Html.TextBoxFor(sm => sm.Bdate, new { data_bind = "value: birthdate" })
+
+   @Html.HiddenFor(sm => sm.UserId, new { data_bind = "value: userId" })  
+
+   
+
+
+     </div>
+    <button data-bind="click: UserdetailSubmit">Add</button>
+    
+    <button data-bind="click: UpdatePerson">Update</button>
+    
+    @*@*
+ 
+         <ul data-bind="template: { name: 'tagsTemp', foreach: UserdetailList }"></ul>
+    
+    <script id="tagsTemp" type="text/html">*@
+    
+    <table data-bind="visible: UserDetailList()">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+
+
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: UserDetailList">
+            
+            <tr data-bind="click: $root.getselectedemployee">
+
+          @*  <td data-bind="text: UserId" style="display:none"></td>*@
+                <td data-bind="text: FirstName"></td>
+                <td data-bind="text: LastName"></td>
+                <td data-bind="text: Bdate"></td>
+
+                <td>
+                    <button data-bind="click: $root.Getselecteddata">Edit</button>
+                    <button data-bind="click: $root.deleterec">Delete</button>
+                 </td>
+            
+        </tbody>
+    </table>
+    @*
+    </script>*@
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/KO")
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script type="text/javascript">
+        function myViewModel() {
+            var self = this;
+            self.userId = ko.observable();
+            self.firstName = ko.observable();
+            self.lastName = ko.observable();
+            self.birthdate = ko.observable();
+
+            var UserDetails = {
+              
+                UserId: self.userId,
+                FirstName: self.firstName,
+                LastName: self.lastName,
+                Bdate: self.birthdate
+            };
+            self.person = ko.observable("");
+
+            //Inserting 
+            self.UserDetailList = ko.observableArray();
+
+
+            GetAllDetails();
+
+            self.UserdetailSubmit = function () {
+                var url = "/Home/Save";
+                $.ajax({
+                    url: url,
+                    cache: false,
+                    type: 'POST',
+                    contentType: "application/json",
+                    data: ko.toJSON(UserDetails),
+                    success: function (data) {
+                      GetAllDetails();
+                      self.firstName("");
+                      self.lastName("");
+                      self.birthdate("");
+                    }
+                }).fail(
+                         function (xhr, textStatus, err) {
+                             alert(err);
+                         });
+            };
+
+             //Updating
+            this.UpdatePerson = function (employee) {
+              debugger
+
+                var url = "/Home/Update";
+
+                $.ajax({
+                    url: url,
+                    cache: false,
+                    type: 'PUT',
+                    contentType: "application/json",
+                    data: ko.toJSON(employee),
+                    success: function (data) { 
+                        GetAllDetails();
+                        self.firstName("");
+                        self.lastName("");
+                        self.birthdate("");
+                    }
+                })
+                       .fail(
+                    function (xhr, textStatus, err) {
+                         alert(err);
+                       });
+                 };
+           //Deleting
+            debugger
+            self.deleterec = function (employee) {
+                debugger
+                var url = "/Home/Delete";
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    contentType: "application/json",
+                    data: ko.toJSON(employee),
+                    success: function (data) {
+                        alert("Record Deleted Successfully");
+                        GetAllDetails();//Refresh the Table
+                    },
+                    error: function (error) {
+                        alert(error.status + "<--and--> " + error.statusText);
+                    }
+                });
+                // alert("Clicked" + employee.EmpNo)
+            };
+            //Get User Details
+            function GetAllDetails() {
+                debugger
+                var url = "/Home/Detail";
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    contentType: "application/json",
+                    data: {},
+                    success: function (data) {
+                        debugger
+                        self.UserDetailList(data);                
+                    },
+                    error: function (error) {
+                        alert(error.status + "<--and--> " + error.statusText);
+                    }
+                });
+            }
+            self.Getselecteddata = function (employee) {
+              debugger
+                self.userId(employee.UserId),
+                            self.firstName(employee.FirstName),
+                            self.lastName(employee.LastName),
+                            self.birthdate(employee.Bdate)
+            };
+        }
+        ko.applyBindings(new myViewModel());
+    </script>
+}
