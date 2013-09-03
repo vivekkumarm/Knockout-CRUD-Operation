@@ -1,30 +1,16 @@
 ﻿@model knockout.Models.UserDetail
+
 @{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Grid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+<h2>Grid</h2>
 
-@*<p>First name: <strong data-bind="text: firstName"></strong></p>
-<p>Last name: <strong data-bind="text: lastName"></strong></p>
-<p>Birthdate: <strong data-bind="text: birthdate"></strong></p>
-
-<p>First name: <input data-bind="value: firstName" /></p>
-<p>Last name: <input data-bind="value: lastName" /></p>
-<p>Birthdate: <input data-bind="value: birthdate" /></p>
-
-<p>Age: <strong data-bind="text: age"></strong></p>
-
-<button data-bind="click: fullPerson">Show!</button>*@
-
-<strong data-bind="text: person"></strong>
 
 @using (Html.BeginForm())
 {
-    <div id="div1">
+   
     @Html.LabelFor(sm=>sm.FirstName)
     @Html.TextBoxFor(sm => sm.FirstName, new { data_bind = "value: firstName" })
    
@@ -34,32 +20,21 @@
     @Html.LabelFor(sm=>sm.Bdate)
     @Html.TextBoxFor(sm => sm.Bdate, new { data_bind = "value: birthdate" })
 
-   @Html.HiddenFor(sm => sm.UserId, new { data_bind = "value: userId" })  
-
-
-
-     </div>
-    <button data-bind="click: UserdetailSubmit">Add</button>
+     <button data-bind="click: UserdetailSubmit">Add</button>
     
     <button data-bind="click: UpdatePerson">Update</button>
-    
-    @*@*
- 
-         <ul data-bind="template: { name: 'tagsTemp', foreach: UserdetailList }"></ul>
-    
-    <script id="tagsTemp" type="text/html">*@
-    
-    <table data-bind="visible: UserDetailList()">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+}
 
 
-                <th>Birth Date</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: UserDetailList">
+<table border="0" cellpadding="0"  cellspacing="0" style="width:100%">
+<tr class="DataGridHeader">
+@*<td style="width:10%; height:25px">User ID</td>*@
+<td style="width:10%">First Name</td>
+<td style="width:10%">Last Name</td>
+<td style="width:10%">B Date</td>
+<td style="width:10%">Action</td>
+</tr>
+ <tbody data-bind="foreach: UserDetailList">
             
             <tr data-bind="click: $root.getselectedemployee">
 
@@ -69,19 +44,19 @@
                 <td data-bind="text: Bdate"></td>
 
                 <td>
-                    <button data-bind="click: $root.Getselecteddata">Edit</button>
-                    <button data-bind="click: $root.deleterec">Delete</button>
+                     
+                    <div style="width:25px; float:left"><img alt="edit" data-bind="click: $root.Getselecteddata" title="Edit item" src="@Url.Content("~/Content/Images/icon-pencil.gif")" /></div>
+                    <div style="width:25px; float:left"><img alt="delete" data-bind="click: $root.deleterec"   title="Delete item" src="@Url.Content("~/Content/Images/icon-delete.gif")" /></div>
+                    @*<button data-bind="click: $root.Getselecteddata">Edit</button>*@
+                    @*<button data-bind="click: $root.deleterec">Delete</button>*@
                  </td>
             
         </tbody>
-    </table>
-    @*
-    </script>*@
-}
+</table>
 
 @section Scripts
 {
-    @Scripts.Render("~/bundles/jquery")
+         @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/KO")
     <script src="~/Scripts/knockout-2.3.0.js"></script>
     <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
@@ -118,10 +93,10 @@
                     contentType: "application/json",
                     data: ko.toJSON(UserDetails),
                     success: function (data) {
-                      GetAllDetails();
-                      self.firstName("");
-                      self.lastName("");
-                      self.birthdate("");
+                        GetAllDetails();
+                        self.firstName("");
+                        self.lastName("");
+                        self.birthdate("");
                     }
                 }).fail(
                          function (xhr, textStatus, err) {
@@ -129,9 +104,9 @@
                          });
             };
 
-             //Updating
+            //Updating
             this.UpdatePerson = function (employee) {
-              debugger
+                debugger
 
                 var url = "/Home/Update";
 
@@ -150,10 +125,10 @@
                 })
                        .fail(
                     function (xhr, textStatus, err) {
-                         alert(err);
-                       });
-                 };
-           //Deleting
+                        alert(err);
+                    });
+            };
+            //Deleting
             debugger
             self.deleterec = function (employee) {
                 debugger
@@ -192,7 +167,7 @@
                 });
             }
             self.Getselecteddata = function (employee) {
-              debugger
+                debugger
                 self.userId(employee.UserId),
                             self.firstName(employee.FirstName),
                             self.lastName(employee.LastName),
@@ -200,5 +175,5 @@
             };
         }
         ko.applyBindings(new myViewModel());
-    </script>
+        </script>
 }

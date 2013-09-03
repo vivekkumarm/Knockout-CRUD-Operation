@@ -51,6 +51,11 @@ namespace knockout.Controllers
             return View();
         }
 
+        public ActionResult Grid()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -196,6 +196,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\DownArrow.gif" />
+    <Content Include="Content\Images\icon-calendar.gif" />
+    <Content Include="Content\Images\icon-delete.gif" />
+    <Content Include="Content\Images\icon-floppy.gif" />
+    <Content Include="Content\Images\icon-pencil-x.gif" />
+    <Content Include="Content\Images\icon-pencil.gif" />
+    <Content Include="Content\Images\Search3.gif" />
+    <Content Include="Content\Images\UpArrow.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -264,10 +272,18 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\perpetuum.knockout.js" />
     <Content Include="ViewModel\UserDetail.js" />
@@ -314,6 +330,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Computing\Sample.cshtml" />
     <Content Include="Views\Home\index.parrot" />
+    <Content Include="Views\Home\Grid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

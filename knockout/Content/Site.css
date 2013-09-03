@@ -753,4 +753,36 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+
+    /*Grid
+    ------------------------------------------------------------*/
+    .content-wrapper {
+    margin: 0 auto;
+    /*max-width: 960px;*/    
+}
+
+.SearchBar 
+{
+     margin: 0px 0px 10px 0px;
+}
+
+.Pager
+{
+     margin: 10px 0px 10px 0px;
+}
+
+.DataGrid {
+    margin: 0px 0px 0px 0px;
+    width: 75%;   
+    max-width: 960px;
+}
+
+.DataGridHeader {
+    margin: 10px 0px 0px 0px;
+    width: 75%; 
+    background-color: Silver;
+    color: Black;
+    font-weight: bold;
+    max-width: 960px;
+}
 }
