@@ -632,9 +632,9 @@ tr.pager td {
             padding: 0;
         }
 
-        #login a:hover {
-            color: #333;
-        }
+            #login a:hover {
+                color: #333;
+            }
 
     /* menu */
     nav {
@@ -699,12 +699,12 @@ tr.pager td {
                 background: none;
             }
 
-     /* features */
-     section.feature {
+    /* features */
+    section.feature {
         float: none;
         padding: 10px;
         width: auto;
-     }
+    }
 
         section.feature img {
             color: #999;
@@ -757,32 +757,146 @@ tr.pager td {
     /*Grid
     ------------------------------------------------------------*/
     .content-wrapper {
-    margin: 0 auto;
-    /*max-width: 960px;*/    
+        margin: 0 auto;
+        /*max-width: 960px;*/
+    }
+
+    .SearchBar {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .Pager {
+        margin: 10px 0px 10px 0px;
+    }
+
+    .DataGrid {
+        margin: 0px 0px 0px 0px;
+        width: 75%;
+        max-width: 960px;
+    }
+
+    .DataGridHeader {
+        margin: 10px 0px 0px 0px;
+        width: 75%;
+        background-color: Silver;
+        color: Black;
+        font-weight: bold;
+        max-width: 960px;
+    }
+
+    .point {
+        cursor: pointer;
+    }
 }
 
-.SearchBar 
+/*********************************Grid Design on 6th Sep 2013********************************************/
+body
 {
-     margin: 0px 0px 10px 0px;
+    font-family: arial;
+    font-size: 14px;
 }
 
-.Pager
+.liveExample
 {
-     margin: 10px 0px 10px 0px;
+    padding: 1em;
+    background-color: #EEEEDD;
+    border: 1px solid #CCC;
+    max-width: 655px;
 }
 
-.DataGrid {
-    margin: 0px 0px 0px 0px;
-    width: 75%;   
-    max-width: 960px;
+    .liveExample input
+    {
+        font-family: Arial;
+    }
+
+    .liveExample b
+    {
+        font-weight: bold;
+    }
+
+    .liveExample p
+    {
+        margin-top: 0.9em;
+        margin-bottom: 0.9em;
+    }
+
+    .liveExample select[multiple]
+    {
+        width: 100%;
+        height: 8em;
+    }
+
+    .liveExample h2
+    {
+        margin-top: 0.4em;
+    }
+
+.ko-grid
+{
+    margin-bottom: 1em;
+    width: 25em;
+    border: 1px solid silver;
+    background-color: White;
 }
 
-.DataGridHeader {
-    margin: 10px 0px 0px 0px;
-    width: 75%; 
-    background-color: Silver;
-    color: Black;
-    font-weight: bold;
-    max-width: 960px;
+    .ko-grid th
+    {
+        text-align: center;
+        background-color: pink;
+        color: violet;
+        cursor: pointer;
+    }
+
+    .ko-grid td, th
+    {
+        padding: 0.4em;
+    }
+
+    .ko-grid tr:nth-child(odd)
+    {
+        background-color: red!important;
+    }
+
+    .ko-grid tr:nth-child(even)
+    {
+        background-color: green!important;
+    }
+
+    .ko-grid table tr th a
+    {
+        color: #626262!important;
+        text-decoration: underline;
+    }
+
+.ko-grid-pageLinks
+{
+    margin-bottom: 1em;
 }
+
+    .ko-grid-pageLinks a
+    {
+        padding: 0.5em;
+    }
+
+        .ko-grid-pageLinks a.selected
+        {
+            background-color: Black;
+            color: White;
+        }
+/*.liveExample { height:20em; overflow:auto }  Mobile Safari reflows pages slowly, so fix the height to avoid the need for reflows */
+
+li
+{
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.imgDownArrow
+{
+    
+       background:transparent url(../Content/Images/DownArrow.gif) no-repeat right bottom;
+}
+.imgUpArrow
+{
+    background: transparent url(../Content/Images/UpArrow.gif) no-repeat right top;
 }

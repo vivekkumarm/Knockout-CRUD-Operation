@@ -64,9 +64,9 @@
             <tr data-bind="click: $root.getselectedemployee">
 
           @*  <td data-bind="text: UserId" style="display:none"></td>*@
-                <td data-bind="text: FirstName"></td>
-                <td data-bind="text: LastName"></td>
-                <td data-bind="text: Bdate"></td>
+                <td data-bind="text: FirstName" style="width:auto;word-wrap:break-word;"></td>
+                <td data-bind="text: LastName" style="word-wrap:break-word;"></td>
+                <td data-bind="text: Bdate" style="word-wrap:break-word;"></td>
 
                 <td>
                     <button data-bind="click: $root.Getselecteddata">Edit</button>
@@ -83,9 +83,9 @@
 {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/KO")
-    <script src="~/Scripts/knockout-2.3.0.js"></script>
+  @*  <script src="~/Scripts/knockout-2.3.0.js"></script>
     <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
-    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>*@
     <script type="text/javascript">
         function myViewModel() {
             var self = this;

@@ -11,56 +11,111 @@
 @using (Html.BeginForm())
 {
    
-    @Html.LabelFor(sm=>sm.FirstName)
+    @Html.LabelFor(sm => sm.FirstName)
     @Html.TextBoxFor(sm => sm.FirstName, new { data_bind = "value: firstName" })
    
-    @Html.LabelFor(sm=>sm.LastName)
+    @Html.LabelFor(sm => sm.LastName)
     @Html.TextBoxFor(sm => sm.LastName, new { data_bind = "value: lastName" })
 
-    @Html.LabelFor(sm=>sm.Bdate)
+    @Html.LabelFor(sm => sm.Bdate)
     @Html.TextBoxFor(sm => sm.Bdate, new { data_bind = "value: birthdate" })
 
-     <button data-bind="click: UserdetailSubmit">Add</button>
+    <button data-bind="click: UserdetailSubmit">Add</button>
     
     <button data-bind="click: UpdatePerson">Update</button>
 }
 
 
-<table border="0" cellpadding="0"  cellspacing="0" style="width:100%">
-<tr class="DataGridHeader">
-@*<td style="width:10%; height:25px">User ID</td>*@
-<td style="width:10%">First Name</td>
-<td style="width:10%">Last Name</td>
-<td style="width:10%">B Date</td>
-<td style="width:10%">Action</td>
-</tr>
- <tbody data-bind="foreach: UserDetailList">
-            
-            <tr data-bind="click: $root.getselectedemployee">
 
-          @*  <td data-bind="text: UserId" style="display:none"></td>*@
-                <td data-bind="text: FirstName"></td>
-                <td data-bind="text: LastName"></td>
-                <td data-bind="text: Bdate"></td>
+<table class="table table-bordered table-condensed table-hover"  >
+    <thead class="btn-primary">
+        <tr data-bind="foreach: headers">
+            <th  data-bind="text: title">
+                  <span  data-bind="click: $parent.sort" ></span>
+            </th>
+         
+        </tr>
+    </thead>
 
-                <td>
-                     
-                    <div style="width:25px; float:left"><img alt="edit" data-bind="click: $root.Getselecteddata" title="Edit item" src="@Url.Content("~/Content/Images/icon-pencil.gif")" /></div>
-                    <div style="width:25px; float:left"><img alt="delete" data-bind="click: $root.deleterec"   title="Delete item" src="@Url.Content("~/Content/Images/icon-delete.gif")" /></div>
-                    @*<button data-bind="click: $root.Getselecteddata">Edit</button>*@
-                    @*<button data-bind="click: $root.deleterec">Delete</button>*@
-                 </td>
-            
-        </tbody>
+    @*<thead>
+        <tr style="cursor: pointer" data-bind="foreach: headers">
+            <th data-bind="click: $parent.sort, text: title"></th>
+        </tr>
+    </thead>*@
+
+      <tbody data-bind="foreach: UserDetailList">
+
+        <tr data-bind="click: $root.getselectedemployee">
+
+            @*  <td data-bind="text: UserId" style="display:none"></td>*@
+            <td data-bind="text: FirstName" style="word-break:break-all;width:300px;"></td>
+            <td data-bind="text: LastName" style="word-break:break-all;width:300px;"></td>
+            <td data-bind="text: Bdate" style="word-break:break-all;width:200px;"></td>
+
+            <td>
+
+                 <a href="#" data-bind="click: $root.Getselecteddata">Edit</a>
+
+                <a href="#" data-bind="click: $root.deleterec">Delete</a>
+              
+            </td>
+
+    </tbody>
+
+    @*<tbody data-bind="foreach: rows">
+        <tr>
+            <td>
+                <span data-bind="text: Id"></span>
+            </td>
+            <td>
+                <span data-bind="text: FirstName"></span>
+            </td>
+            <td>
+                <span data-bind="text: LastName"></span>
+            </td>
+            <td>
+                <span data-bind="text: Phone"></span>
+            </td>
+            <td>
+                <a href="#" data-bind="click: $root.editContact">Edit</a>
+
+                <a href="#" data-bind="click: $root.removeContact">Delete</a>
+            </td>
+        </tr>
+    </tbody>*@
+
+    <tfoot class="btn-primary">
+        <tr>
+            <td colspan="5">
+                <div class="row">
+                    <div class="span9"></div>
+                    <div class="span9" align="center">
+                        <span class="icon-white icon-fast-backward" data-bind="click: firstPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+                        <span class="icon-white icon-backward" data-bind="click: previousPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+                        <input type="text" style="width: 30px;" class="search-query" data-bind="value: pageIndex" />
+                        <span data-bind="text: pageMessage"></span>
+                        <select style="width: 60px;" class="search-query" data-bind="options: pageSizes, value: pageSize"></select>
+                        <span class="icon-white icon-forward" data-bind="click: nextPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+                        <span class="icon-white icon-fast-forward" data-bind="click: lastPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+                    </div>
+                    <div class="span9" align="right">
+                        <span data-bind="text: recordMessage"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
 </table>
+
 
 @section Scripts
 {
-         @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/KO")
-    <script src="~/Scripts/knockout-2.3.0.js"></script>
-    <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
-    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    @Scripts.Render("~/bundles/Bootbox")
+    @Scripts.Render("~/bundles/Bootstrap")
+
+     
     <script type="text/javascript">
         function myViewModel() {
             var self = this;
@@ -69,12 +124,62 @@
             self.lastName = ko.observable();
             self.birthdate = ko.observable();
 
+            self.page = ko.observable(1);
+
+            self.records = ko.observable(1);
+
+            self.totalPages = ko.observable(1);
+
+            self.rowsPerPage = ko.observable(3);
+
+            debugger
+            //self.pagesText = ko.computed(function () {
+            //    return self.page() +
+            //    " of " + self.totalpages() + " pages";
+            //});
+
+
+            //debugger
+            //function PageFirst(item) {
+            //    _this.page(2);
+            //    LoadDataFromServer();
+            //}
+
+            //debugger
+            //_this.PageFirst = PageFirst;
+
+            //function PageLast(item) {
+            //    _this.page(_this.totalPages());
+            //    LoadDataFromServer();
+            //}
+
+            //debugger
+            //_this.PageLast = PageLast;
+
+
+            //function PageBack(item) {
+            //    _this.page(_this.page() - 1);
+            //    LoadDataFromServer();
+            //}
+
+            //_this.PageBack = PageBack;
+
+            //debugger
+            //function PageNext(item) {
+            //    _this.page(_this.page() + 1);
+            //    LoadDataFromServer();
+            //}
+
+            //_this.PageNext = PageNext;
+
             var UserDetails = {
-              
+
                 UserId: self.userId,
                 FirstName: self.firstName,
                 LastName: self.lastName,
                 Bdate: self.birthdate
+                //TotalRowCount :self.rowsPerPage,
+                //TotalPageCount :self.page
             };
             self.person = ko.observable("");
 
@@ -116,7 +221,7 @@
                     type: 'PUT',
                     contentType: "application/json",
                     data: ko.toJSON(employee),
-                    success: function (data) { 
+                    success: function (data) {
                         GetAllDetails();
                         self.firstName("");
                         self.lastName("");
@@ -151,7 +256,10 @@
             //Get User Details
             function GetAllDetails() {
                 debugger
-                var url = "/Home/Detail";
+                var url = "/Home/SampleGrid" + '?rows=' + self.rowsPerPage() +
+               '&page=' + self.page();
+                // url += '?rows=' + _this.rowsPerPage() +
+                //'&page=' + _this.page();
                 $.ajax({
                     type: 'GET',
                     url: url,
@@ -159,7 +267,7 @@
                     data: {},
                     success: function (data) {
                         debugger
-                        self.UserDetailList(data);                
+                        self.UserDetailList(data);
                     },
                     error: function (error) {
                         alert(error.status + "<--and--> " + error.statusText);
@@ -173,7 +281,66 @@
                             self.lastName(employee.LastName),
                             self.birthdate(employee.Bdate)
             };
+
+            debugger
+            self.GridSort = function () {
+                debugger
+                self.UserDetailList.sort(function (a, b) {
+                    return a.name < b.name ? -1 : 1;
+                });
+            };
+
+            self.fSort = function () {
+                debugger
+                self.UserDetailList.sort(function (a, b) {
+                    return a.name < b.name ? -1 : 1;
+                });
+            };
+
+            self.lSort = function () {
+                debugger
+            };
+
+            self.bSort = function () {
+                debugger
+            };
+
+
+            self.headers = [
+        { title: 'First Name', sortKey: 'fName' },
+        { title: 'Last Name', sortKey: 'lName' },
+        { title: 'Birth Date', sortKey: 'bdate' },
+        { title: 'Action' }
+            ];
+
+            self.activeSort = self.headers[0]; //set the default sort
+
+            self.sort = function (header, event) {
+                debugger
+                var sortKey = header.sortKey;
+                switch (sortKey) {
+                    case 'fName':
+                        self.UserDetailList.sort(function (a, b) {
+                            return a.FirstName < b.FirstName ? -1 : a.FirstName > b.FirstName ? 1 : a.FirstName == b.FirstName ? 0 : 0;
+                        });
+                        break;
+                    case 'lName':
+                        self.UserDetailList.sort(function (a, b) {
+                            return a.LastName < b.LastName ? -1 : a.LastName > b.LastName ? 1 : a.LastName == b.LastName ? 0 : 0;
+                        });
+                        break;
+                    case 'bdate':
+                        self.UserDetailList.sort(function (a, b) {
+                            return a.Bdate < b.Bdate ? -1 : a.Bdate > b.Bdate ? 1 : a.Bdate == b.Bdate ? 0 : 0;
+                        });
+                        break;
+                }
+                debugger
+            };
+
         }
+        
         ko.applyBindings(new myViewModel());
-        </script>
+    </script>
 }
+

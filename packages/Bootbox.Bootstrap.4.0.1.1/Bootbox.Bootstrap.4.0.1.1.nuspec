@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Bootbox.Bootstrap</id>
+    <version>4.0.1.1</version>
+    <title>Bootbox</title>
+    <authors>Nick Payne (package by Germán Ferreyra)</authors>
+    <owners>Nick Payne (package by Germán Ferreyra)</owners>
+    <licenseUrl>http://bootboxjs.com/license.txt</licenseUrl>
+    <projectUrl>http://bootboxjs.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bootbox.js is a small JavaScript library which allows you to create programmatic dialog boxes using Twitter’s Bootstrap modals, without having to worry about creating, managing or removing any of the required DOM elements or JS event handlers.</description>
+    <summary>´This package installs Bootbox 4.0.0 for Bootstrap 3.x
+
+The code is available under the MIT license.</summary>
+    <releaseNotes>Bootstrap 3.0.0 compatibility
+Complete rewrite (and new public API)
+Use strict mode
+Add close buttons to wrapper methods (GH-92)
+Allow dialog titles to be specified (GH-51, GH-112)
+Allow optional extra class on dialog wrapper (GH-116)
+Fix backdrop: true not firing close handler (GH-77)
+Replace various configuration methods with one setDefaults</releaseNotes>
+    <copyright />
+    <language>en-US</language>
+    <tags>Bootbox Bootstrap</tags>
+    <dependencies>
+      <dependency id="Twitter.Bootstrap" version="3.0.0" />
+      <dependency id="jQuery" version="1.8.3" />
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "SampleData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SampleData</h2>
+
+<div>
+            <div>
+                <a href="#" data-bind="click: addContact">Add Contact</a>
+            </div>
+            <table class="table table-bordered table-condensed table-hover" data-bind="with: pagedList">
+                <thead class="btn-primary">
+                    <tr>
+                        <!-- ko foreach: columns -->
+                        <th data-bind="click: sortable ? $parent.sort : '', style: { width: width, cursor: sortable ? 'pointer' : '' }">
+                            <span data-bind="text: name"></span>
+
+                            <span class="icon-white icon-circle-arrow-down" data-bind="visible: $parent.sortOrder() === 'desc' && sortable && $parent.sortName() === index"></span>
+                            <span class="icon-white icon-circle-arrow-up" data-bind="visible: $parent.sortOrder() === 'asc' && sortable && $parent.sortName() === index"></span>
+                        </th>
+                        <!-- /ko -->
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: rows">
+                    <tr>
+                        <td>
+                            <span data-bind="text: Id"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: FirstName"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: LastName"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: Phone"></span>
+                        </td>
+                        <td>
+                            <a href="#" data-bind="click: $root.editContact">Edit</a>
+
+                            <a href="#" data-bind="click: $root.removeContact">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="btn-primary">
+                    <tr>
+                        <td colspan="5">
+                            <div class="row">
+                                <div class="span9"></div>
+                                <div class="span9" align="center">
+                                    <span class="icon-white icon-fast-backward" data-bind="click: firstPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+                                    <span class="icon-white icon-backward" data-bind="click: previousPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+                                    <input type="text" style="width: 30px;" class="search-query" data-bind="value: pageIndex" />
+                                    <span data-bind="text: pageMessage"></span>
+                                    <select style="width: 60px;" class="search-query" data-bind="options: pageSizes, value: pageSize"></select>
+                                    <span class="icon-white icon-forward" data-bind="click: nextPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+                                    <span class="icon-white icon-fast-forward" data-bind="click: lastPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+                                </div>
+                                <div class="span9" align="right">
+                                    <span data-bind="text: recordMessage"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div id="contactModal" class="modal hide">
+                <div class="modal-header">
+                    <h3>Contact Information</h3>
+                </div>
+                <!-- dialog contents -->
+                <table>
+                    <tbody data-bind="with: contact">
+                        <tr>
+                            <td>First Name:
+                            </td>
+                            <td>
+                                <input data-bind="value: FirstName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:
+                            </td>
+                            <td>
+                                <input data-bind="value: LastName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Phone:
+                            </td>
+                            <td>
+                                <input data-bind="value: Phone" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- dialog buttons -->
+                <div class="modal-footer">
+                    <a id="btnOK" href="#" class="btn btn-primary" data-bind="click: updateContact">Save</a>
+                    <a id="btnCancel" href="#" class="btn" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/KO")
+    @Scripts.Render("~/bundles/Bootbox")
+    @Scripts.Render("~/bundles/Bootstrap")
+<script type="text/javascript">
+    function view() {
+        debugger
+        this.contact = ko.validatedObservable({
+            Id: ko.observable(0),
+            FirstName: ko.observable().extend({ required: true }),
+            LastName: ko.observable().extend({ required: true }),
+            Phone: ko.observable().extend({ required: true })
+        });
+        this.addContact = function () {
+            self.contact().Id(0);
+            self.contact().FirstName('');
+            self.contact().LastName('');
+            self.contact().Phone('');
+            $('#contactModal').modal('show');
+        };
+    }
+    ko.applyBindings(new view());
+</script>
+}

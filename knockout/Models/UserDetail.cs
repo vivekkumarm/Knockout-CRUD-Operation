@@ -14,5 +14,13 @@ namespace knockout.Models
         public string LastName { get; set; }
 
         public int Bdate { get; set; }
+
+        public int TotalRowCount { get; set; }
+
+        public int TotalPageCount { get; set; }
+
+        public object GridData { get; set; }
     }
+
+    
 }
